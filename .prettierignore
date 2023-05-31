@@ -1,5 +1,10 @@
 # Ignore artifacts:
-node_modules
+/node_modules
 
 # Ignore all HTML files:
 *.html
+
+# Ignored suffix
+*.md
+*.svg
+*.png
