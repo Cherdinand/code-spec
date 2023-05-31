@@ -12,13 +12,14 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "eslint": "^8.41.0",
     "husky": "^8.0.3",
     "prettier": "^2.8.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "prettier": "prettier --config .prettierrc.js --write src/*.{js,ts,css,json}",
+    "prettier": "prettier --write",
     "prepare": "husky install"
   },
   "eslintConfig": {
