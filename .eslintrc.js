@@ -36,16 +36,6 @@ module.exports = {
       impliedStrict: true,
     },
   },
-  globals: {
-    // 微信小程序
-    wx: true,
-    App: true,
-    Page: true,
-    getCurrentPages: true,
-    getApp: true,
-    Component: true,
-    requirePlugin: true,
-    requireMiniProgram: true,
-  },
+  extends: ['prettier'],
   plugins: ['prettier', 'react'],
 };
