@@ -1,41 +1,42 @@
 module.exports = {
   root: true,
+  // ESLint 会检测未声明的变量，并发出警告，但是有些变量是我们引入的库声明的，这里就需要提前在配置中声明。
+  // globals: {
+  //   "React": false  // true表示该变量为 writeable，而 false 表示 readonly
+  // }
+  // 但是在globals中一个个的进行声明未免有点繁琐，这个时候就需要使用到env，这是对一个环境定义的一组全局变量的预设。
   env: {
-    es6: true,
-    browser: true,
-    node: true,
-  },
-  rules: {
-    eqeqeq: 1, // 警告使用全等
-    singleQuote: 0,
-    'no-console': 0, //不禁用console
-    'no-var': 2, //对var禁止
-    semi: 2, //强制使用分号
-    'semi-spacing': [2, { before: false, after: true }], // 强制分号前后不允许空格
-    'no-unused-vars': [2, { vars: 'all', args: 'after-used' }], //不能有声明后未被使用的变量或参数
-    'no-cond-assign': 2, //禁止在条件表达式中使用赋值语句
-    'no-const-assign': 2, //禁止修改const声明的变量
-    'no-duplicate-case': 2, //switch中的case标签不能重复
-    'no-dupe-args': 2, //函数参数不能重复
-    'no-func-assign': 2, //禁止重复的函数声明
-    'no-redeclare': 2, //禁止重复声明变量
-    'no-spaced-func': 2, //函数调用时 函数名与()之间不能有空格
-    camelcase: 0, //强制驼峰法命名
-    'jsx-quotes': [2, 'prefer-double'], //强制在JSX属性（jsx-quotes）中一致使用双引号
-    'react/jsx-key': 2, //在数组或迭代器中验证JSX具有key属性
-    'react/jsx-no-duplicate-props': 2, //防止在JSX中重复的props
-    'react/jsx-no-undef': 1, //在JSX中禁止未声明的变量
-    'react/jsx-uses-vars': 2, //防止在JSX中使用的变量被错误地标记为未使用
-    'prefer-arrow-callback': 0, //比较喜欢箭头回调
+    es6: true, // 所有除了modules的es6功能
+    browser: true, // 浏览器全局变量
+    node: true, // node全局变量
   },
   parserOptions: {
-    sourceType: 'module',
-    ecmaVerson: 'latest',
+    sourceType: 'module', // es6的modules功能需要在这里添加
     ecmaFeatures: {
       jsx: true,
       impliedStrict: true,
     },
   },
-  extends: ['prettier'],
-  plugins: ['prettier', 'react'],
+  // rules里配置的规则是优先于extends数组里的配置的，相当于自定义项目配置
+  rules: {
+    'prettier/prettier': 'error', // 把prettier当成eslint的一个rules
+    'react/react-in-jsx-scope': 'off', // 允许jsx文件中没有import React
+  },
+  // extends可以使用别人配置好的rules
+  extends: [
+    'eslint:recommended', // eslint推荐的常用rules，可以上官网查看具体包含内容
+    'plugin:react/recommended', // react插件中常用rules，可以上官网查看具体包含内容
+    'prettier', // 停用eslint中会与prettier起冲突的配置。需要在extends数组的最后，因为extends数组后面的规则会覆盖前面的
+  ],
+  // 安装的插件可以在eslint的内置rules外扩展新的规则，但是扩展的规则默认是不开启的，如果要使用需要在rules/extends中配置启用
+  plugins: [
+    'prettier', // eslint集成prettier，把prettier当成eslint的一个rules。这样只需执行eslint就可以顺便执行prettier
+    'react', // 引入react的
+  ],
+  // 为了解决这个warning加了settings：React version not specified in eslint-plugin-react settings
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 };
