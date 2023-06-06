@@ -12,5 +12,4 @@ module.exports = {
 	insertPragma: false, //在已被preitter格式化的文件顶部加上标注
 	htmlWhitespaceSensitivity: 'ignore', //对HTML全局空白不敏感
 	vueIndentScriptAndStyle: false, //不对vue中的script及style标签缩进
-	endOfLine: 'lf', //结束行形式
 };
